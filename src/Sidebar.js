@@ -8,10 +8,11 @@ import {SearchOutlined} from "@material-ui/icons";
 import SidebarChat from "./SidebarChat";
 
 function Sidebar() {
+   
     return (
         <div className="sidebar">
            <div className="sidebar_header">
-                <Avatar/>
+                <Avatar src={`https://avatars.dicebear.com/api/human/aada.svg`} />
                 <div className="sidebar_headerRight">
                     <IconButton>
                         <DonutLargeIcon/>
@@ -49,6 +50,6 @@ function Sidebar() {
 
         </div>
     );
-};
+}
 
-export default Sidebar;
+export default Sidebar
