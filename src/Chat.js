@@ -5,10 +5,17 @@ import MicIcon from "@material-ui/icons/Mic";
 import React, { useState, useEffect } from 'react'
 import "./Chat.css";
 function Chat() {
+    const[input, setInput] = useState("");
     const [seed, setSeed] = useState("");
     useEffect(() => {
         setSeed(Math.floor(Math.random() * 5000));
     },[]);
+
+    const sendMessage = (e) =>{
+        // preventDefault will stop from refreshing
+        e.preventDefault();
+        console.log(input);
+    };
     return (
         <div className="chat">
             <div className="chat_header">
@@ -38,8 +45,8 @@ function Chat() {
                 <InsertEmoticonIcon/>
                 <AttachFile/>
                 <form>
-                    <input placeholder="Type a message" type="text"/>
-                    <button type="submit">Send a message</button>
+                    <input value={input} onChange={e => setInput(e.target.value)} placeholder="Type a message" type="text"/>
+                    <button onClick={sendMessage} type="submit">Send a message</button>
                 </form>
                 <MicIcon/>
             </div>
