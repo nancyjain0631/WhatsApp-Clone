@@ -9,12 +9,12 @@ import SidebarChat from "./SidebarChat";
 import db from "./firebase";
 
 function Sidebar() {
-   const [rooms, setRooms] =useState([]);
+   const [chats, setChats] =useState([]);
    useEffect(() => {
     //    any changes in the list of items in the collection "chats", run this code
     db.collection('chats').onSnapshot(snapshot => {
         // docs- list of elements(no. of chats) in the database
-        setRooms(snapshot.docs.map(doc => 
+        setChats(snapshot.docs.map(doc => 
             ({
                 id:doc.id,
                 data:doc.data(),
@@ -49,9 +49,9 @@ function Sidebar() {
             </div>
             <div className="sidebar_chats">
                 <SidebarChat addNewChat/>
-                <SidebarChat/>
-                <SidebarChat/>
-                <SidebarChat/>
+                {chats.map(chat => (
+                    <SidebarChat key={chat.id} id={chat.id} name={chat.data.name} />
+                ))}
                               
 
             </div>
