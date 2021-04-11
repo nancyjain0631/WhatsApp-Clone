@@ -15,6 +15,7 @@ function Chat() {
         // preventDefault will stop from refreshing
         e.preventDefault();
         console.log(input);
+        setInput("");
     };
     return (
         <div className="chat">
