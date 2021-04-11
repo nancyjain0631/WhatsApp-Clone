@@ -22,6 +22,14 @@
 .chat_headerInfo > p{
     color: gray;
 }
+.chat_message{
+    position: relative;
+    font-size: 16px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: fit-content;
+}
 .chat_headerRight{
     display: flex;
     justify-content: space-between;
