@@ -7,7 +7,8 @@ import MicIcon from "@material-ui/icons/Mic";
 import { useParams } from "react-router-dom";
 import "./Chat.css";
 import db from './firebase';
-
+import firebase from 'firebase';
+import {useStateValue} from "./StateProvider";
 
 function Chat() {
     const [input, setInput] = useState("");
@@ -15,15 +16,15 @@ function Chat() {
     const { roomId } =useParams();
     const [roomName, setRoomName] = useState("");
     const [messages,setMessages] =useState([]);
+    const [{user}, dispatch] = useStateValue();
     useEffect(() => {
         if( roomId ) {
             db.collection('rooms')
             .doc(roomId)
-            .onSnapshot(snapshot => 
+            .onSnapshot((snapshot) => 
                 // THIS WILL PULL THE DATA FROM LHS AND GET THE CHATNAME
-                setRoomName(snapshot.data().name)
-                
-        );
+                setRoomName(snapshot.data().name));
+
         db.collection('rooms').doc(roomId).collection("messages").orderBy('timestamp', 'asc').onSnapshot(snapshot=> 
             setMessages(snapshot.docs.map(doc => doc.data()))
         );
@@ -31,12 +32,18 @@ function Chat() {
     }, [roomId]);
     useEffect(() => {
         setSeed(Math.floor(Math.random() * 5000));
-    },[]);
+    },[roomId]);
 
     const sendMessage = (e) =>{
         // preventDefault will stop from refreshing
         e.preventDefault();
         // console.log(input);
+        db.collection('rooms').doc(roomId).collection('messages').add({
+            message: input,
+            name: user.displayName,
+            timestamp: firebase.firestore. FieldValue.serverTimestamp(),
+
+        });
         setInput("");
     };
     return (
@@ -62,7 +69,7 @@ function Chat() {
                    <p className={`chat_message ${true && "chat_reciever"}`}>
                    <span className="chat_name">{message.name}</span>
                    {message.message}
-                   <span className="chat_timestamp">{message.timestamp}
+                   <span className="chat_timestamp">{new Date(message.timestamp?.toDate()).toUTCString()}
                    </span>
                </p>
                 ))}
