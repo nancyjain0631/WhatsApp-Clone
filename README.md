@@ -1,3 +1,6 @@
+# WhatsApp- Clone
+#### Recently completed building "WhatsApp clone" using React, Firebase Realtime db, Context API, Material UI and React Router and Google Authentication. I have used "Firebase Realtime db" for storing the chats and messages.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
